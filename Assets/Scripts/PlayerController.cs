@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,11 +8,13 @@ public class PlayerController : MonoBehaviour
     float horizontalMove;
     float mouseInputX;
     float mouseInputY;
-    float rollInputt;
+    float rollInput;
 
     [SerializeField] float speedMult = 1;
     [SerializeField] float speedMultAngle = 0.5f;
     [SerializeField] float speedRollMultAngle = 0.05f;
+
+    [SerializeField] float maxRollAngle = 45f;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         verticalMove = Input.GetAxis("Vertical");
         horizontalMove = Input.GetAxis("Horizontal");
-        rollInputt = Input.GetAxis("Roll");
+        rollInput = Input.GetAxis("Roll");
 
         mouseInputX = Input.GetAxis("Mouse X");
         mouseInputY = Input.GetAxis("Mouse Y");
@@ -33,16 +34,28 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddForce(rb.transform.TransformDirection(-Vector3.right) * verticalMove * speedMult, ForceMode.VelocityChange);
+        rb.AddForce(transform.TransformDirection(-Vector3.right) * verticalMove * speedMult, ForceMode.VelocityChange);
+        rb.AddForce(transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
 
-        rb.AddForce(rb.transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
- 
         if (!Input.GetKey(KeyCode.LeftControl))
         {
-            rb.AddTorque(rb.transform.forward * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
-            rb.AddTorque(rb.transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
+            rb.AddTorque(transform.forward * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
+            rb.AddTorque(transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
         }
 
-        rb.AddTorque(-rb.transform.right * speedMultAngle * rollInputt, ForceMode.VelocityChange);
+        float currentRoll = Vector3.SignedAngle(Vector3.up, transform.up, transform.forward);
+
+        if ((rollInput > 0 && currentRoll < maxRollAngle) ||
+            (rollInput < 0 && currentRoll > -maxRollAngle))
+        {
+            rb.AddTorque(-transform.right * speedRollMultAngle * rollInput, ForceMode.VelocityChange);
+        }
+
+        if (Mathf.Abs(currentRoll) >= maxRollAngle)
+        {
+            Vector3 angVel = rb.angularVelocity;
+            angVel -= Vector3.Project(angVel, transform.right);
+            rb.angularVelocity = angVel;
+        }
     }
 }
