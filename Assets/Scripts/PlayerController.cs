@@ -1,71 +1,45 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] float thrust = 20f;
-    [SerializeField] float boostMultiplier = 2f;
-    [SerializeField] float brakeForce = 10f;
-
-    [SerializeField] float pitchSpeed = 80f;
-    [SerializeField] float yawSpeed = 80f;
-    [SerializeField] float rollSpeed = 120f;
-
     Rigidbody rb;
+
+    float verticalMove;
+    float horizontalMove;
+    float mouseInputX;
+    float mouseInputY;
+    float rollInputt;
+
+    [SerializeField] float speedMult = 1;
+    [SerializeField] float speedMultAngle = 0.5f;
+    [SerializeField] float speedRollMultAngle = 0.05f;
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.linearDamping = 0;
-        rb.angularDamping = 0;
-
     }
 
     void Update()
     {
-        HandleMovement();
-        HandleRotation();
+        verticalMove = Input.GetAxis("Vertical");
+        horizontalMove = Input.GetAxis("Horizontal");
+        rollInputt = Input.GetAxis("Roll");
+
+        mouseInputX = Input.GetAxis("Mouse X");
+        mouseInputY = Input.GetAxis("Mouse Y");
     }
 
-    void HandleMovement()
+    void FixedUpdate()
     {
-        float currentThrust = thrust;
+        rb.AddForce(rb.transform.TransformDirection(-Vector3.right) * verticalMove * speedMult, ForceMode.VelocityChange);
 
-        if (Input.GetKey(KeyCode.LeftShift))
-            currentThrust *= boostMultiplier;
+        rb.AddForce(rb.transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
+ 
+        rb.AddTorque(rb.transform.forward * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
+        rb.AddTorque(rb.transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
 
-        rb.AddForce(-transform.right * currentThrust, ForceMode.Acceleration);
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, Vector3.zero, brakeForce * Time.fixedDeltaTime);
-        }
-    }
-
-    void HandleRotation()
-    {
-        float pitch = 0f;
-        float yaw = 0f;
-        float roll = 0f;
-
-                if (Input.GetKey(KeyCode.W)) pitch = 1;
-        if (Input.GetKey(KeyCode.S)) pitch = -1;
-
-        if (Input.GetKey(KeyCode.A)) yaw = -1;
-        if (Input.GetKey(KeyCode.D)) yaw = 1;
-
-        if (Input.GetKey(KeyCode.Q)) roll = 1;
-        if (Input.GetKey(KeyCode.E)) roll = -1;
-
-        Vector3 torque = new Vector3(
-            pitch * pitchSpeed,
-            yaw * yawSpeed,
-            roll * rollSpeed
-        );
-
-        rb.AddRelativeTorque(torque * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        rb.AddTorque(-rb.transform.right * speedMultAngle * rollInputt, ForceMode.VelocityChange);
     }
 }
