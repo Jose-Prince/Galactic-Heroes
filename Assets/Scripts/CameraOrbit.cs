@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,7 +10,10 @@ public class CameraOrbit : MonoBehaviour
     [SerializeField] float recenterSpeed = 3f;
 
     float yaw;
-    float pitch = 20f;
+    float pitch;
+
+    float initialYaw;
+    float initialPitch;
 
     void Start()
     {
@@ -18,16 +22,26 @@ public class CameraOrbit : MonoBehaviour
 
         yaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         pitch = Mathf.Asin(direction.y / distance) * Mathf.Rad2Deg;
+
+        initialYaw = yaw;
+        initialPitch = pitch;
     }
 
     void LateUpdate()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        bool orbiting = Input.GetKey(KeyCode.LeftControl);
+
+        if (orbiting)
         {
             yaw += Input.GetAxis("Mouse X") * orbitSpeed * Time.deltaTime;
             pitch -= Input.GetAxis("Mouse Y") * orbitSpeed * Time.deltaTime;
 
             pitch = Mathf.Clamp(pitch, -40f, 80f);
+        }
+        else
+        {
+            yaw = Mathf.LerpAngle(yaw, initialYaw, recenterSpeed * Time.deltaTime);
+            pitch = Mathf.LerpAngle(pitch, initialPitch, recenterSpeed * Time.deltaTime);
         }
 
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
