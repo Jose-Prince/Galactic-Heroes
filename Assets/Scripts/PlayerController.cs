@@ -37,8 +37,11 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(rb.transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
  
-        rb.AddTorque(rb.transform.forward * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
-        rb.AddTorque(rb.transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
+        if (!Input.GetKey(KeyCode.LeftControl))
+        {
+            rb.AddTorque(rb.transform.forward * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
+            rb.AddTorque(rb.transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
+        }
 
         rb.AddTorque(-rb.transform.right * speedMultAngle * rollInputt, ForceMode.VelocityChange);
     }
