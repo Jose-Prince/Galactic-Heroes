@@ -5,15 +5,17 @@ using UnityEngine;
 public class CameraOrbit : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float distance = 80f;
     [SerializeField] float orbitSpeed = 100f;
     [SerializeField] float recenterSpeed = 3f;
 
     float yaw;
     float pitch;
+    float distance;
 
     float initialYaw;
     float initialPitch;
+
+    Vector3 localOffset;
 
     void Start()
     {
@@ -25,6 +27,8 @@ public class CameraOrbit : MonoBehaviour
 
         initialYaw = yaw;
         initialPitch = pitch;
+
+        localOffset = target.InverseTransformDirection(direction);
     }
 
     void LateUpdate()
@@ -37,18 +41,20 @@ public class CameraOrbit : MonoBehaviour
             pitch -= Input.GetAxis("Mouse Y") * orbitSpeed * Time.deltaTime;
 
             pitch = Mathf.Clamp(pitch, -40f, 80f);
+
+            Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
+            Vector3 offset = rotation * new Vector3(0, 0, -distance);
+
+            transform.position = target.position + offset;
         }
         else
         {
+            Vector3 offset = target.TransformDirection(localOffset);
+            transform.position = target.position + offset;
+            
             yaw = Mathf.LerpAngle(yaw, initialYaw, recenterSpeed * Time.deltaTime);
             pitch = Mathf.LerpAngle(pitch, initialPitch, recenterSpeed * Time.deltaTime);
         }
-
-        Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
-
-        Vector3 offset = rotation * new Vector3(0, 0, -distance);
-
-        transform.position = target.position + offset;
 
         transform.LookAt(target);
     }
