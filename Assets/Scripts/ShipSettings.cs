@@ -14,6 +14,8 @@ public class ShipSettings : MonoBehaviour
     [SerializeField] Image shieldBar;
     [SerializeField] Image boostBar;
 
+    [SerializeField] GameObject model;
+
     private float currentHealth;
     private float currentShield;
     private float currentBoost;
@@ -50,6 +52,18 @@ public class ShipSettings : MonoBehaviour
 
         bc.enabled = true;
         isIntangible = false;
+    }
+
+    public void ActivateInvisibility(float duration)
+    {
+        StartCoroutine(InvisibilityRoutine(duration));
+    }
+
+    IEnumerator InvisibilityRoutine(float duration)
+    {
+        model.SetActive(false);
+        yield return new WaitForSeconds(duration);
+        model.SetActive(true);
     }
 
     public void Heal(float amount)
