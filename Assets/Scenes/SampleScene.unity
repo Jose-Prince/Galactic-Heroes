@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ddff77cdef6c74085d471af83013fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoostPickup
+  data: {fileID: 11400000, guid: e250fbd128121ef4db21c004fa38353b, type: 2}
 --- !u!135 &16871697
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -417,6 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c29a0c527d114347b5d4ea461337c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthPickup
+  data: {fileID: 11400000, guid: dad11eabde4bff74f9bd416a599e6da9, type: 2}
 --- !u!54 &173243203
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -449,6 +451,108 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 781eee0672472364bb124867c20f8012, type: 3}
   m_PrefabInstance: {fileID: 688575293}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &306521398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 306521399}
+  - component: {fileID: 306521400}
+  - component: {fileID: 306521402}
+  - component: {fileID: 306521401}
+  m_Layer: 5
+  m_Name: Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &306521399
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306521398}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1164015660}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -65.14218, y: 0}
+  m_SizeDelta: {x: 230.2843, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &306521400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306521398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &306521401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306521398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.3433962, g: 0.3433962, b: 0.3433962, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &306521402
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306521398}
+  m_CullTransparentMesh: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,7 +1139,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1338,7 +1442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1164015660}
   - component: {fileID: 1164015662}
-  - component: {fileID: 1164015661}
+  - component: {fileID: 1164015663}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -1357,7 +1461,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 306521399}
   m_Father: {fileID: 1052897445}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -1365,36 +1470,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &1164015661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164015659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1164015662
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1403,6 +1478,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164015659}
   m_CullTransparentMesh: 1
+--- !u!114 &1164015663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164015659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6663f38065d33e74093f77d978cbf43a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
+  container: {fileID: 306521399}
+  slotPrefab: {fileID: 6195676696821962903, guid: a58a00572a70c0942b4c7ea3e81c154c, type: 3}
 --- !u!1 &1188428915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,6 +1672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ad06bdcaa4d414085e4aabf62fe8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePickup
+  data: {fileID: 11400000, guid: cc20c79718e41684e8bf06715b613408, type: 2}
   duration: 5
 --- !u!135 &1206985325
 SphereCollider:
@@ -1784,6 +1874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed399b7d8991a448b71dc1a31a2ff04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IntangibilityPickup
+  data: {fileID: 11400000, guid: 4f304238bdb878b4696611ce24ad4b5b, type: 2}
   duration: 20
 --- !u!135 &1328195218
 SphereCollider:
@@ -2026,6 +2117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c4ad845521317645ba56558aae6483c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShieldPickup
+  data: {fileID: 11400000, guid: c17caeee3bf58494f806e77b935bdd6d, type: 2}
 --- !u!135 &1759072146
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2133,6 +2225,7 @@ GameObject:
   - component: {fileID: 1793065859}
   - component: {fileID: 1793065860}
   - component: {fileID: 1793065861}
+  - component: {fileID: 1793065862}
   m_Layer: 0
   m_Name: PlayerSpaceship
   m_TagString: Player
@@ -2242,6 +2335,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 65.53337, y: 15.757282, z: 47.112835}
   m_Center: {x: 21.71875, y: -1.5037947, z: 0.08157635}
+--- !u!114 &1793065862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793065856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734f96b1d6d99e44b9cbb05dea90a260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory
+  inventoryUI: {fileID: 1164015663}
 --- !u!1 &1801260749
 GameObject:
   m_ObjectHideFlags: 0
