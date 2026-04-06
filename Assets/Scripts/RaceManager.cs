@@ -16,6 +16,11 @@ public class RaceManager : MonoBehaviour
         rings.AddRange(allRings);    
     }
 
+    void Start()
+    {
+        ResetRace();
+    }
+
     public void RingPassed(Ring ring)
     {
         ringsPassed++;
@@ -29,5 +34,15 @@ public class RaceManager : MonoBehaviour
     void FinishRace()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void ResetRace()
+    {
+        ringsPassed = 0;
+
+        foreach (Ring ring in rings)
+        {
+            ring.ResetRing();
+        }
     }
 }

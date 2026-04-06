@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         if (persistence.SaveExists())
         {
             continueButton.SetActive(true);

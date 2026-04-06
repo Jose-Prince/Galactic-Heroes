@@ -11,4 +11,15 @@ public class Ring : MonoBehaviour
         GetComponentInChildren<MeshRenderer>().material.color = Color.green;
         RaceManager.Instance.RingPassed(this);      
     }
+
+    public void ResetRing()
+    {
+        passed = false;
+
+        var renderer = GetComponentInChildren<MeshRenderer>();
+        if (renderer)
+        {
+            renderer.material.color = Color.white;
+        }
+    }
 }
