@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b35f8ff941a92b49958a27e6544212a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RaceManager
+  persistence: {fileID: 1755588264}
   rings: []
 --- !u!4 &38844254
 Transform:

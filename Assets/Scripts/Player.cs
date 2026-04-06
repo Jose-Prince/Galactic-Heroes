@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            persistence.SaveData(transform.position);
+            persistence.SaveData(transform.position, false);
         }        
     }
 }

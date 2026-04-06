@@ -10,13 +10,15 @@ public class PersistanceManager : MonoBehaviour
         path = Application.persistentDataPath + "/player.save";
     }
 
-    public void SaveData(Vector3 position)
+    public void SaveData(Vector3 position, bool finishedRace)
     {
         GameData data = new GameData();
 
         data.posX = position.x;
         data.posY = position.y;
         data.posZ = position.z;
+
+        data.finishedRace = finishedRace;
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);

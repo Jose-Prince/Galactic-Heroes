@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
+    public PersistanceManager persistence;
     public static RaceManager Instance;
 
     public List<Ring> rings = new List<Ring>();
@@ -33,6 +34,7 @@ public class RaceManager : MonoBehaviour
 
     void FinishRace()
     {
+        persistence.SaveData(Vector3.zero, true);
         SceneManager.LoadScene("Main Menu");
     }
 
