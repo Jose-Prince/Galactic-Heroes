@@ -40,4 +40,9 @@ public class PersistanceManager : MonoBehaviour
             return null;
         }
     }
+
+    public bool SaveExists()
+    {
+        return File.Exists(path);
+    }
 }

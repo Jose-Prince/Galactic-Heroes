@@ -6,12 +6,15 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        GameData data = persistence.LoadData();
-
-        if (data != null)
+        if (GameManager.isContinue)
         {
-            transform.position = new Vector3(data.posX, data.posY, data.posZ);
-        }    
+            GameData data = persistence.LoadData();
+
+            if (data != null)
+            {
+                transform.position = new Vector3(data.posX, data.posY, data.posZ);
+            }        
+        }
     }
 
     void Update()
