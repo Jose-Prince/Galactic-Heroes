@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
+    [SerializeField] RaceTimer timer;
+
     public PersistanceManager persistence;
     public static RaceManager Instance;
 
@@ -47,6 +49,7 @@ public class RaceManager : MonoBehaviour
 
     void FinishRace()
     {
+        timer.StopTimer();
         persistence.SaveData(Vector3.zero, true);
         SceneManager.LoadScene("Main Menu");
     }
