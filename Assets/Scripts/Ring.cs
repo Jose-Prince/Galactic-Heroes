@@ -4,11 +4,17 @@ using UnityEngine;
 public class Ring : MonoBehaviour
 {
     public bool passed = false;
+    private SphereCollider sc;
 
+    void Start()
+    {
+        sc = GetComponent<SphereCollider>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         passed = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+        sc.enabled = false;
         RaceManager.Instance.RingPassed(this);      
     }
 
