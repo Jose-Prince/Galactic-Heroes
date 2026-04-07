@@ -1,8 +1,11 @@
 using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class PersistanceManager : MonoBehaviour
 {
+    [SerializeField] RaceTimer timer;
+    
     string path;
 
     void Awake()
@@ -19,6 +22,9 @@ public class PersistanceManager : MonoBehaviour
         data.posZ = position.z;
 
         data.finishedRace = finishedRace;
+
+        if (finishedRace)
+            data.raceTime = timer.GetTime();
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);

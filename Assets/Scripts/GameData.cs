@@ -9,4 +9,5 @@ public class GameData
     public float posZ;
     public bool finishedRace;
     public List<bool> ringsPassed;
+    public float raceTime;
 }

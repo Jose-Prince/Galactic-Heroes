@@ -76,6 +76,8 @@ public class RaceManager : MonoBehaviour
 
         data.ringsPassed = new List<bool>();
 
+        data.raceTime = timer.GetTime();
+
         foreach (Ring ring in rings)
         {
             data.ringsPassed.Add(ring.passed);

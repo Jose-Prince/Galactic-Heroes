@@ -1,28 +1,39 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RaceTimer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] TextMeshProUGUI lastTimeText;
+
+    public PersistanceManager persistence;
+
 
     private float time = 0f;
     private bool isRunning = true;
+
+    void Start()
+    {
+        GameData data = persistence.LoadData();
+
+        UpdateUI(data.raceTime, lastTimeText);
+    }
 
     void Update()
     {
         if (!isRunning) return;
 
         time += Time.deltaTime;
-        UpdateUI();    
+        UpdateUI(time, timerText);    
     }
 
-    void UpdateUI()
+    void UpdateUI(float time, TextMeshProUGUI textUI)
     {
         int minutes = Mathf.FloorToInt(time / 60);
         int seconds = Mathf.FloorToInt(time % 60);
+        int milliseconds = (int)((time * 100) % 100);
 
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        textUI.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
 
     public float GetTime()
