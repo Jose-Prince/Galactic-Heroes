@@ -694,6 +694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ring (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2576287907931956133, guid: 60028dcd4c6f64248a4a66daae194826, type: 3}
+      propertyPath: ringID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6195487262132902227, guid: 60028dcd4c6f64248a4a66daae194826, type: 3}
       propertyPath: m_LocalScale.x
       value: 20
@@ -1641,6 +1645,10 @@ PrefabInstance:
     - target: {fileID: 1434383694744461394, guid: 60028dcd4c6f64248a4a66daae194826, type: 3}
       propertyPath: m_Name
       value: Ring (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576287907931956133, guid: 60028dcd4c6f64248a4a66daae194826, type: 3}
+      propertyPath: ringID
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6195487262132902227, guid: 60028dcd4c6f64248a4a66daae194826, type: 3}
       propertyPath: m_LocalScale.x

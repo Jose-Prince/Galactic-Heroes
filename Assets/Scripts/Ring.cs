@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Ring : MonoBehaviour
 {
+    [SerializeField] int ringID;
     public bool passed = false;
+
     private SphereCollider sc;
 
     void Start()
@@ -15,7 +17,9 @@ public class Ring : MonoBehaviour
         passed = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.green;
         sc.enabled = false;
-        RaceManager.Instance.RingPassed(this);      
+        RaceManager.Instance.RingPassed(this);
+
+        RaceManager.Instance.SaveProgress();
     }
 
     public void ResetRing()
