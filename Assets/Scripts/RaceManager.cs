@@ -22,22 +22,15 @@ public class RaceManager : MonoBehaviour
 
     void Start()
     {
-        if (GameManager.isContinue)
-        {
-            GameData data = persistence.LoadData();
+        GameData data = persistence.LoadData();
 
-            if (data != null)
-            {
-                LoadRace(data);
-            }
-        }
-        else
+        if (data != null)
         {
-            ResetRace();
+            LoadRace(data);
         }
     }
 
-    public void RingPassed(Ring ring)
+    public void RingPassed()
     {
         ringsPassed++;
 
@@ -49,8 +42,9 @@ public class RaceManager : MonoBehaviour
 
     void FinishRace()
     {
+        var actualID = 0;
         timer.StopTimer();
-        persistence.SaveData(Vector3.zero, true);
+        persistence.SaveData(Vector3.zero, true, timer, actualID);
         SceneManager.LoadScene("Main Menu");
     }
 
@@ -76,7 +70,7 @@ public class RaceManager : MonoBehaviour
 
         data.ringsPassed = new List<bool>();
 
-        data.raceTime = timer.GetTime();
+        data.raceTimes[0] = timer.GetTime();
 
         foreach (Ring ring in rings)
         {

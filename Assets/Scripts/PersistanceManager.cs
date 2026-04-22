@@ -3,9 +3,7 @@ using TMPro;
 using UnityEngine;
 
 public class PersistanceManager : MonoBehaviour
-{
-    [SerializeField] RaceTimer timer;
-    
+{   
     string path;
 
     void Awake()
@@ -13,7 +11,7 @@ public class PersistanceManager : MonoBehaviour
         path = Application.persistentDataPath + "/player.save";
     }
 
-    public void SaveData(Vector3 position, bool finishedRace)
+    public void SaveData(Vector3 position, bool finishedRace, RaceTimer timer, int raceID)
     {
         GameData data = new GameData();
 
@@ -24,7 +22,7 @@ public class PersistanceManager : MonoBehaviour
         data.finishedRace = finishedRace;
 
         if (finishedRace)
-            data.raceTime = timer.GetTime();
+            data.raceTimes[raceID] = timer.GetTime();
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);

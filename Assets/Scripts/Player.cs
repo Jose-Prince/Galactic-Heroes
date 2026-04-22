@@ -6,22 +6,11 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        if (GameManager.isContinue)
-        {
-            GameData data = persistence.LoadData();
+        GameData data = persistence.LoadData();
 
-            if (data != null)
-            {
-                transform.position = new Vector3(data.posX, data.posY, data.posZ);
-            }        
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (data != null)
         {
-            persistence.SaveData(transform.position, false);
+            transform.position = new Vector3(data.posX, data.posY, data.posZ);
         }        
     }
 }

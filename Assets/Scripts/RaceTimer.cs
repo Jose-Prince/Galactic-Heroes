@@ -6,17 +6,21 @@ public class RaceTimer : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] TextMeshProUGUI lastTimeText;
 
-    public PersistanceManager persistence;
+    public GameManager gameManager;
 
 
     private float time = 0f;
     private bool isRunning = true;
 
+    void Awake()
+    {
+        gameManager = FindObjectsByType<GameManager>(FindObjectsSortMode.None)[0];
+    }
+
     void Start()
     {
-        GameData data = persistence.LoadData();
-
-        UpdateUI(data.raceTime, lastTimeText);
+        var data = gameManager.GetData();
+        UpdateUI(data.raceTimes[0], lastTimeText);
     }
 
     void Update()

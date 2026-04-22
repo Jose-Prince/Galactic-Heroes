@@ -1504,7 +1504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RaceTimer
   timerText: {fileID: 900387709}
   lastTimeText: {fileID: 1195429346}
-  persistence: {fileID: 1755588264}
+  gameManager: {fileID: 0}
 --- !u!4 &1503969950
 Transform:
   m_ObjectHideFlags: 0
@@ -1649,7 +1649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef39b8d6b6ec6f04ba29de8beee14874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PersistanceManager
-  timer: {fileID: 1503969949}
 --- !u!4 &1755588265
 Transform:
   m_ObjectHideFlags: 0
@@ -1749,6 +1748,7 @@ MonoBehaviour:
   speedMultAngle: 0.5
   speedRollMultAngle: 0.05
   maxRollAngle: 45
+  stats: {fileID: 11400000, guid: 4b3a561bb0318724c98e5b63cf46be4a, type: 2}
 --- !u!114 &1793065860
 MonoBehaviour:
   m_ObjectHideFlags: 0

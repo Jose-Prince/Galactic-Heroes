@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ring : MonoBehaviour
@@ -17,7 +16,7 @@ public class Ring : MonoBehaviour
         passed = true;
         GetComponentInChildren<MeshRenderer>().material.color = Color.green;
         sc.enabled = false;
-        RaceManager.Instance.RingPassed(this);
+        RaceManager.Instance.RingPassed();
 
         RaceManager.Instance.SaveProgress();
     }

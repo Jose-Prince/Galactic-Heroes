@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float maxRollAngle = 45f;
 
+    [SerializeField] StatsData stats;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
