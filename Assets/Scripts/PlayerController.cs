@@ -9,11 +9,12 @@ public class PlayerController : MonoBehaviour
     float mouseInputX;
     float mouseInputY;
     float rollInput;
+    bool isBraking;
 
-    [SerializeField] float speedMult = 1;
+    float currentSpeed;
+
     [SerializeField] float speedMultAngle = 0.5f;
     [SerializeField] float speedRollMultAngle = 0.05f;
-
     [SerializeField] float maxRollAngle = 45f;
 
     [SerializeField] StatsData stats;
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
+
+        rb.mass = stats.weight;
     }
 
     void Update()
@@ -32,32 +35,44 @@ public class PlayerController : MonoBehaviour
 
         mouseInputX = Input.GetAxis("Mouse X");
         mouseInputY = Input.GetAxis("Mouse Y");
+
+        isBraking = Input.GetKey(KeyCode.Space);
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(transform.TransformDirection(-Vector3.right) * verticalMove * speedMult, ForceMode.VelocityChange);
-        rb.AddForce(transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
+        HandleMovement();
+        HandleRotation();
+        HandleRoll();
+    }
 
-        if (!Input.GetKey(KeyCode.LeftControl))
+    void HandleMovement()
+    {
+        if (!isBraking)
         {
-            rb.AddTorque(transform.forward * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
-            rb.AddTorque(transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
+            currentSpeed += stats.acceleration * Time.fixedDeltaTime;
+            currentSpeed = Mathf.Clamp(currentSpeed, 0, stats.speed);
+        }
+        else
+        {
+            currentSpeed -= stats.brake * Time.fixedDeltaTime;
+            currentSpeed = Mathf.Clamp(currentSpeed, 0, stats.speed);
         }
 
-        float currentRoll = Vector3.SignedAngle(Vector3.up, transform.up, transform.forward);
+        Vector3 forwardVelocity = -transform.right * currentSpeed;
 
-        if ((rollInput > 0 && currentRoll < maxRollAngle) ||
-            (rollInput < 0 && currentRoll > -maxRollAngle))
-        {
-            rb.AddTorque(-transform.right * speedRollMultAngle * rollInput, ForceMode.VelocityChange);
-        }
+        Vector3 sideVelocity = transform.forward * horizontalMove * stats.handling;
 
-        if (Mathf.Abs(currentRoll) >= maxRollAngle)
-        {
-            Vector3 angVel = rb.angularVelocity;
-            angVel -= Vector3.Project(angVel, transform.right);
-            rb.angularVelocity = angVel;
-        }
+        rb.linearVelocity = forwardVelocity + sideVelocity;
+    }
+
+    void HandleRotation()
+    {
+        
+    }
+
+    void HandleRoll()
+    {
+        
     }
 }
