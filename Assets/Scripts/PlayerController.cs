@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
     float horizontalMove;
     float mouseInputX;
     float mouseInputY;
-    float rollInput;
 
     bool isBraking = false;
+    float pitchInput;
 
     [SerializeField] float speedMult = 1;
     [SerializeField] float speedMultAngle = 0.5f;
@@ -40,9 +40,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        pitchInput = 0f;
+
         verticalMove = Input.GetAxis("Vertical");
         horizontalMove = Input.GetAxis("Horizontal");
-        rollInput = Input.GetAxis("Roll");
+
+        if (Input.GetKey(KeyCode.Q)) pitchInput = 1f;
+        if (Input.GetKey(KeyCode.E)) pitchInput = -1f;
 
         mouseInputX = Input.GetAxis("Mouse X");
         mouseInputY = Input.GetAxis("Mouse Y");
@@ -51,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //Vector3 forwardDir = transform.TransformDirection(-Vector3.right);
+        Vector3 forwardDir = transform.TransformDirection(-Vector3.right);
         if (pivot != null && Mathf.Abs(horizontalMove) > 0.01f)
         {
             transform.RotateAround(
@@ -76,13 +80,16 @@ public class PlayerController : MonoBehaviour
             rb.AddTorque(transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
         }
 
-        float currentRoll = Vector3.SignedAngle(Vector3.up, transform.up, transform.forward);
-
-        if ((rollInput > 0 && currentRoll < maxRollAngle) ||
-            (rollInput < 0 && currentRoll > -maxRollAngle))
+        if (Mathf.Abs(pitchInput) > 0.01f)
         {
-            rb.AddTorque(-transform.right * speedRollMultAngle * rollInput, ForceMode.VelocityChange);
+            transform.Rotate(
+                Vector3.right,
+                pitchInput * speedMultAngle * 100f * Time.fixedDeltaTime,
+                Space.Self
+            );
         }
+
+        float currentRoll = Vector3.SignedAngle(Vector3.up, transform.up, transform.forward);
 
         if (Mathf.Abs(currentRoll) >= maxRollAngle)
         {
@@ -103,6 +110,6 @@ public class PlayerController : MonoBehaviour
 
         currentSpeed -= drag * currentSpeed * Time.fixedDeltaTime;
 
-        //rb.AddForce(forwardDir * currentSpeed, ForceMode.Acceleration);
+        rb.AddForce(forwardDir * currentSpeed, ForceMode.Acceleration);
     }
 }
