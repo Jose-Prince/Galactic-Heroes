@@ -1677,7 +1677,7 @@ GameObject:
   m_Layer: 0
   m_Name: ShipPivot
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1695,6 +1695,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PivotFollow
   target: {fileID: 1793065858}
   smoothSpeed: 5
+  distance: -90
+  height: -10
 --- !u!4 &1772719685
 Transform:
   m_ObjectHideFlags: 0
@@ -1797,6 +1799,8 @@ MonoBehaviour:
   maxSpeed: 500
   brakeForce: 50
   drag: 2
+  orbitSpeed: 50
+  pivot: {fileID: 1772719685}
   maxRollAngle: 45
   stats: {fileID: 11400000, guid: 4b3a561bb0318724c98e5b63cf46be4a, type: 2}
 --- !u!114 &1793065860

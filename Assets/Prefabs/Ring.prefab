@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6195487262132902227}
-  - component: {fileID: 2821167989319977444}
   - component: {fileID: 2576287907931956133}
+  - component: {fileID: 6626270041183373675}
   m_Layer: 0
   m_Name: Ring
   m_TagString: Untagged
@@ -34,8 +34,22 @@ Transform:
   - {fileID: 3807014583211312329}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!135 &2821167989319977444
-SphereCollider:
+--- !u!114 &2576287907931956133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434383694744461394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ca91269a1938946b62d921d26b5cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ring
+  ringID: 0
+  passed: 0
+--- !u!65 &6626270041183373675
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -53,21 +67,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2.08
-  m_Center: {x: -0.51, y: 1.11, z: 0.36}
---- !u!114 &2576287907931956133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434383694744461394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69ca91269a1938946b62d921d26b5cbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ring
-  passed: 0
+  m_Size: {x: 4.335663, y: 0.31761518, z: 4.49626}
+  m_Center: {x: -0.6347809, y: 0.99752975, z: 0.42239857}
 --- !u!1001 &3701821363237397282
 PrefabInstance:
   m_ObjectHideFlags: 0

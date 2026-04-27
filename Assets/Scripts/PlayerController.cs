@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
 
-    float verticalMove;
+    float verticalMove; 
     float horizontalMove;
     float mouseInputX;
     float mouseInputY;
@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxSpeed = 50f;
     [SerializeField] float brakeForce = 40f;
     [SerializeField] float drag = 2f;
+    [SerializeField] float orbitSpeed = 50f;
+
+    [SerializeField] Transform pivot;
 
     float currentSpeed = 0f;
 
@@ -48,8 +51,24 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 forwardDir = transform.TransformDirection(-Vector3.right);
-        rb.AddForce(transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
+        //Vector3 forwardDir = transform.TransformDirection(-Vector3.right);
+        if (pivot != null && Mathf.Abs(horizontalMove) > 0.01f)
+        {
+            transform.RotateAround(
+                pivot.position,
+                Vector3.up,
+                horizontalMove * orbitSpeed * Time.fixedDeltaTime
+            );
+        }
+
+        if (pivot != null && Mathf.Abs(verticalMove) > 0.01f)
+        {
+            transform.RotateAround(
+                pivot.position,
+                Vector3.right,
+                verticalMove * orbitSpeed * Time.fixedDeltaTime
+            );
+        }
 
         if (!Input.GetKey(KeyCode.LeftControl))
         {
@@ -72,7 +91,7 @@ public class PlayerController : MonoBehaviour
             rb.angularVelocity = angVel;
         }
 
-        currentSpeed += acceleration * Time.deltaTime;
+        currentSpeed += acceleration * Time.fixedDeltaTime;
         currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
 
         if (isBraking)
@@ -84,6 +103,6 @@ public class PlayerController : MonoBehaviour
 
         currentSpeed -= drag * currentSpeed * Time.fixedDeltaTime;
 
-        rb.AddForce(forwardDir * currentSpeed, ForceMode.Acceleration);
+        //rb.AddForce(forwardDir * currentSpeed, ForceMode.Acceleration);
     }
 }

@@ -5,11 +5,11 @@ public class Ring : MonoBehaviour
     [SerializeField] int ringID;
     public bool passed = false;
 
-    private SphereCollider sc;
+    private BoxCollider sc;
 
     void Start()
     {
-        sc = GetComponent<SphereCollider>();
+        sc = GetComponent<BoxCollider>();
     }
     private void OnTriggerEnter(Collider other)
     {
