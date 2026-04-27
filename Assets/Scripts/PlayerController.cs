@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,14 +9,12 @@ public class PlayerController : MonoBehaviour
     float mouseInputX;
     float mouseInputY;
     float rollInput;
-    bool isBraking;
 
-    float currentSpeed;
-
+    [SerializeField] float speedMult = 1;
     [SerializeField] float speedMultAngle = 0.5f;
     [SerializeField] float speedRollMultAngle = 0.05f;
+
     [SerializeField] float maxRollAngle = 45f;
-    [SerializeField] GameObject horizontalPivot;
 
     [SerializeField] StatsData stats;
 
@@ -25,8 +22,6 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
-
-        rb.mass = stats.weight;
     }
 
     void Update()
@@ -37,81 +32,32 @@ public class PlayerController : MonoBehaviour
 
         mouseInputX = Input.GetAxis("Mouse X");
         mouseInputY = Input.GetAxis("Mouse Y");
-
-        isBraking = Input.GetKey(KeyCode.Space);
     }
 
     void FixedUpdate()
     {
-        HandleMovement();
-        HandleTurning();
-        HandleRotation();
-        HandleRoll();
-    }
+        rb.AddForce(transform.TransformDirection(-Vector3.right) * verticalMove * speedMult, ForceMode.VelocityChange);
+        rb.AddForce(transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
 
-    void HandleMovement()
-    {
-        if (!isBraking)
+        if (!Input.GetKey(KeyCode.LeftControl))
         {
-            currentSpeed += stats.acceleration * Time.fixedDeltaTime;
-            currentSpeed = Mathf.Clamp(currentSpeed, 0, stats.speed);
-        }
-        else
-        {
-            currentSpeed -= stats.brake * Time.fixedDeltaTime;
-            currentSpeed = Mathf.Clamp(currentSpeed, 0, stats.speed);
+            rb.AddTorque(transform.forward * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
+            rb.AddTorque(transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
         }
 
-        Vector3 forwardVelocity = -transform.right * currentSpeed;
-        rb.linearVelocity = forwardVelocity;
-    }
+        float currentRoll = Vector3.SignedAngle(Vector3.up, transform.up, transform.forward);
 
-    void HandleRotation()
-    {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if ((rollInput > 0 && currentRoll < maxRollAngle) ||
+            (rollInput < 0 && currentRoll > -maxRollAngle))
         {
-            rb.AddTorque(-transform.right * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
-            rb.AddTorque(transform.up * speedMultAngle * mouseInputX * stats.handling, ForceMode.VelocityChange);
-        }
-    }
-
-    void HandleRoll()
-    {
-        float currenRoll = Vector3.SignedAngle(Vector3.up, transform.up, transform.forward);
-
-        if ((rollInput > 0 && currenRoll < maxRollAngle) || 
-            (rollInput < 0 && currenRoll > -maxRollAngle))
-        {
-            rb.AddTorque(-transform.right * speedMultAngle * rollInput, ForceMode.VelocityChange);
+            rb.AddTorque(-transform.right * speedRollMultAngle * rollInput, ForceMode.VelocityChange);
         }
 
-        if (Mathf.Abs(currenRoll) >= maxRollAngle)
+        if (Mathf.Abs(currentRoll) >= maxRollAngle)
         {
             Vector3 angVel = rb.angularVelocity;
             angVel -= Vector3.Project(angVel, transform.right);
             rb.angularVelocity = angVel;
         }
-    }
-
-    void HandleTurning()
-    {
-        if (horizontalPivot == null) return;
-
-        float turnInput = horizontalMove;
-        float speedFactor = currentSpeed / stats.speed;
-
-        float turnSpeed = turnInput * stats.handling * speedFactor;
-
-        Vector3 offset = transform.position - horizontalPivot.transform.position;
-
-        Quaternion rotation = quaternion.Euler(0, turnSpeed, 0);
-
-        offset = rotation * offset;
-
-        Vector3 newPosition = horizontalPivot.transform.position + offset;
-
-        rb.MovePosition(newPosition);
-
-        rb.MoveRotation(rotation * rb.rotation);
     }
 }

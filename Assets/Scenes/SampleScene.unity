@@ -977,7 +977,7 @@ RectTransform:
   - {fileID: 1164015660}
   - {fileID: 900387708}
   - {fileID: 1195429345}
-  m_Father: {fileID: 1793065858}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1729,7 +1729,6 @@ Transform:
   - {fileID: 1742357790}
   - {fileID: 330585546}
   - {fileID: 1801260750}
-  - {fileID: 1052897445}
   - {fileID: 2022930175}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -1745,10 +1744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676169207c923bd48a4de5686498f508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  speedMult: 1
   speedMultAngle: 0.5
   speedRollMultAngle: 0.05
   maxRollAngle: 45
-  horizontalPivot: {fileID: 2022930174}
   stats: {fileID: 11400000, guid: 4b3a561bb0318724c98e5b63cf46be4a, type: 2}
 --- !u!114 &1793065860
 MonoBehaviour:
@@ -2147,3 +2146,4 @@ SceneRoots:
   - {fileID: 1755588265}
   - {fileID: 38844254}
   - {fileID: 1503969950}
+  - {fileID: 1052897445}
