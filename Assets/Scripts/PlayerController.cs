@@ -10,9 +10,19 @@ public class PlayerController : MonoBehaviour
     float mouseInputY;
     float rollInput;
 
+    bool isBraking = false;
+
     [SerializeField] float speedMult = 1;
     [SerializeField] float speedMultAngle = 0.5f;
     [SerializeField] float speedRollMultAngle = 0.05f;
+
+    [Header("Stats")]
+    [SerializeField] float acceleration = 20f;
+    [SerializeField] float maxSpeed = 50f;
+    [SerializeField] float brakeForce = 40f;
+    [SerializeField] float drag = 2f;
+
+    float currentSpeed = 0f;
 
     [SerializeField] float maxRollAngle = 45f;
 
@@ -33,11 +43,12 @@ public class PlayerController : MonoBehaviour
 
         mouseInputX = Input.GetAxis("Mouse X");
         mouseInputY = Input.GetAxis("Mouse Y");
+        isBraking = Input.GetKey(KeyCode.Space);;
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(transform.TransformDirection(-Vector3.right) * stats.speed, ForceMode.VelocityChange);
+        Vector3 forwardDir = transform.TransformDirection(-Vector3.right);
         rb.AddForce(transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
 
         if (!Input.GetKey(KeyCode.LeftControl))
@@ -60,5 +71,19 @@ public class PlayerController : MonoBehaviour
             angVel -= Vector3.Project(angVel, transform.right);
             rb.angularVelocity = angVel;
         }
+
+        currentSpeed += acceleration * Time.deltaTime;
+        currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
+
+        if (isBraking)
+        {
+            currentSpeed -= brakeForce * Time.fixedDeltaTime;
+        }
+
+        currentSpeed = Mathf.Max(currentSpeed, 0);
+
+        currentSpeed -= drag * currentSpeed * Time.fixedDeltaTime;
+
+        rb.AddForce(forwardDir * currentSpeed, ForceMode.Acceleration);
     }
 }
