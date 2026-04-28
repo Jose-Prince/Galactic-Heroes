@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
+        stats = GetComponent<StatsData>();
     }
 
     void Update()
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddForce(transform.TransformDirection(-Vector3.right) * verticalMove * speedMult, ForceMode.VelocityChange);
+        rb.AddForce(transform.TransformDirection(-Vector3.right) * stats.speed, ForceMode.VelocityChange);
         rb.AddForce(transform.TransformDirection(Vector3.forward) * horizontalMove * speedMult, ForceMode.VelocityChange);
 
         if (!Input.GetKey(KeyCode.LeftControl))
