@@ -11,10 +11,6 @@ public class PlayerController : MonoBehaviour
 
     bool isBraking = false;
     float pitchInput;
-    float currentPitch = 0f;
-
-    float mouseVelX;
-    float mouseVelY;
 
     [SerializeField] float speedMult = 1;
     [SerializeField] float speedMultAngle = 0.5f;
@@ -27,17 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float drag = 2f;
     [SerializeField] float orbitSpeed = 50f;
 
-    [SerializeField] float pitchSpeed = 120f;
-    [SerializeField] float maxPitchAngle = 45f;
-    [SerializeField] float pitchReturnSpeed = 2f;
-
     [SerializeField] Transform pivot;
-
-    [SerializeField] float mouseSmoothSpeed = 10f;
-    [SerializeField] float maxMouseInput = 3f;
-
-    float smoothMouseX;
-    float smoothMouseY;
 
     float currentSpeed = 0f;
 
@@ -62,15 +48,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Q)) pitchInput = 1f;
         if (Input.GetKey(KeyCode.E)) pitchInput = -1f;
 
-        float rawMouseX = Input.GetAxis("Mouse X");
-        float rawMouseY = Input.GetAxis("Mouse Y");
-
-        rawMouseX = Mathf.Clamp(rawMouseX, -maxMouseInput, maxMouseInput);
-        rawMouseY = Mathf.Clamp(rawMouseY, -maxMouseInput, maxMouseInput);
-
-        smoothMouseX = Mathf.SmoothDamp(smoothMouseX, rawMouseX, ref mouseVelY, 0.05f);
-        smoothMouseY = Mathf.SmoothDamp(smoothMouseY, rawMouseY, ref mouseVelY, 0.05f);
-
+        mouseInputX = Input.GetAxis("Mouse X");
+        mouseInputY = Input.GetAxis("Mouse Y");
         isBraking = Input.GetKey(KeyCode.Space);;
     }
 
@@ -97,8 +76,8 @@ public class PlayerController : MonoBehaviour
 
         if (!Input.GetKey(KeyCode.LeftControl))
         {
-            rb.AddTorque(transform.forward * speedMultAngle * smoothMouseY * -1, ForceMode.VelocityChange);
-            rb.AddTorque(transform.up * speedMultAngle * smoothMouseX, ForceMode.VelocityChange);
+            rb.AddTorque(transform.forward * speedMultAngle * mouseInputY * -1, ForceMode.VelocityChange);
+            rb.AddTorque(transform.up * speedMultAngle * mouseInputX, ForceMode.VelocityChange);
         }
 
         if (Mathf.Abs(pitchInput) > 0.01f)
