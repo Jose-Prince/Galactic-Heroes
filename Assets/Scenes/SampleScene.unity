@@ -1664,6 +1664,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1772719683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1772719685}
+  - component: {fileID: 1772719684}
+  m_Layer: 0
+  m_Name: ShipPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1772719684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772719683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a48c93e10b5b845aa36209683bbb5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PivotFollow
+  target: {fileID: 1793065858}
+  smoothSpeed: 5
+--- !u!4 &1772719685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772719683}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -9.8, z: -90.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1793065856
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,6 +1793,10 @@ MonoBehaviour:
   speedMult: 1
   speedMultAngle: 0.5
   speedRollMultAngle: 0.05
+  acceleration: 1000
+  maxSpeed: 500
+  brakeForce: 50
+  drag: 2
   maxRollAngle: 45
   stats: {fileID: 11400000, guid: 4b3a561bb0318724c98e5b63cf46be4a, type: 2}
 --- !u!114 &1793065860
@@ -2147,3 +2197,4 @@ SceneRoots:
   - {fileID: 38844254}
   - {fileID: 1503969950}
   - {fileID: 1052897445}
+  - {fileID: 1772719685}
