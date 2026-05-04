@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     private GameData data;
     private int actualRace;
+
+    private GameObject pauseMenu;
 
     void Awake()
     {
@@ -20,6 +24,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+
     }
 
     void Start()
@@ -27,14 +32,6 @@ public class GameManager : MonoBehaviour
         if (persistance != null)
         {
             data = persistance.LoadData();
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;   
         }
     }
 
@@ -47,4 +44,5 @@ public class GameManager : MonoBehaviour
     {
         actualRace = id;
     }
+
 }

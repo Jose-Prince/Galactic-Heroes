@@ -2,6 +2,19 @@ using UnityEngine;
 
 public class MenuUI : MonoBehaviour
 {
+
+    [SerializeField] GameObject pauseMenu;
+
+    private bool isPaused = false;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu != null)
+        {
+            TogglePause();
+        }
+    }
+
     public void LoadScene(string sceneName)
     {
         SceneFlowManager.Instance.LoadScene(sceneName);
@@ -15,5 +28,20 @@ public class MenuUI : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+
+        pauseMenu.SetActive(isPaused);
+
+        Time.timeScale = isPaused ? 0f : 1f;
+
+        Cursor.lockState = isPaused
+            ? CursorLockMode.None
+            : CursorLockMode.Locked;
+
+        Cursor.visible = isPaused;
     }
 }
