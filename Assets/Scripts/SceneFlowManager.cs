@@ -4,10 +4,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneFlowManager : MonoBehaviour
 {
+    public static SceneFlowManager Instance { get; private set; }
     string currentScene;
+    const string BootstrapScene = "Bootstrap";
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
         DetectCurrentScene();
     }
 
@@ -17,7 +27,7 @@ public class SceneFlowManager : MonoBehaviour
         {
             Scene scene = SceneManager.GetSceneAt(i);
 
-            if (scene.name != "Bootstrap")
+            if (scene.name != BootstrapScene)
             {
                 currentScene = scene.name;
                 SceneManager.SetActiveScene(scene);
