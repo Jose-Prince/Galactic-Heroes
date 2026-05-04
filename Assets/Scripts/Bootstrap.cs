@@ -1,11 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Bootstrap : MonoBehaviour
+public static class Bootstrap 
 {
-    [SerializeField] string startupScene = "MainMenu";
+    const string BootstrapScene = "Bootstrap";
 
-    void Start()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Init()
     {
-        FindAnyObjectByType<SceneFlowManager>().LoadScene(startupScene);
+        if (!SceneManager.GetSceneByName(BootstrapScene).isLoaded)
+        {
+            SceneManager.LoadScene(BootstrapScene, LoadSceneMode.Additive);
+        }
     }
 }
