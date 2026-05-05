@@ -634,6 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74914478c81f4748b48f96104b5dd52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuUI
+  pauseMenu: {fileID: 0}
 --- !u!4 &1387759483
 Transform:
   m_ObjectHideFlags: 0
@@ -871,7 +872,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1387759482}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
-        m_MethodName: LoadSceneWait
+        m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1004,7 +1005,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1387759482}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
-        m_MethodName: LoadSceneWait
+        m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

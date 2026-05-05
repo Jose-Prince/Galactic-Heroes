@@ -7,6 +7,7 @@ public class SceneFlowManager : MonoBehaviour
     public static SceneFlowManager Instance { get; private set; }
     string currentScene;
     const string BootstrapScene = "Bootstrap";
+    const string BackgroundScene = "Background";
 
     void Awake()
     {
@@ -49,7 +50,9 @@ public class SceneFlowManager : MonoBehaviour
 
     IEnumerator LoadRoutine(string sceneName)
     {
-       if (!string.IsNullOrEmpty(currentScene))
+        yield return UnloadBackgroundIfNeeded(currentScene);
+
+        if (!string.IsNullOrEmpty(currentScene))
         {
             Scene sceneToUnload = SceneManager.GetSceneByName(currentScene);
 
@@ -64,6 +67,8 @@ public class SceneFlowManager : MonoBehaviour
             LoadSceneMode.Additive
         );
 
+        yield return LoadBackgroundIfNeeded(sceneName);
+
         currentScene = sceneName;
 
         Scene scene = SceneManager.GetSceneByName(sceneName);
@@ -72,11 +77,13 @@ public class SceneFlowManager : MonoBehaviour
 
     IEnumerator LoadWithLoadingRoutine(string sceneName)
     {
-        Debug.Log(currentScene);
+        yield return UnloadBackgroundIfNeeded(currentScene);
+
         yield return SceneManager.LoadSceneAsync(
             "LoadingScene",
             LoadSceneMode.Additive
         );
+        yield return null;
 
         if (!string.IsNullOrEmpty(currentScene))
         {
@@ -92,6 +99,8 @@ public class SceneFlowManager : MonoBehaviour
             sceneName,
             LoadSceneMode.Additive
         );
+
+        yield return LoadBackgroundIfNeeded(sceneName);
 
         loadOp.allowSceneActivation = false;
 
@@ -125,5 +134,41 @@ public class SceneFlowManager : MonoBehaviour
         SceneManager.SetActiveScene(scene);
 
         yield return SceneManager.UnloadSceneAsync("LoadingScene");
+    }
+
+    bool IsRaceScene(string sceneName)
+    {
+        return sceneName == "RaceScene1" ||
+            sceneName == "RaceScene2" ||
+            sceneName == "RaceScene3";
+    }
+
+    IEnumerator LoadBackgroundIfNeeded(string sceneName)
+    {
+        if (IsRaceScene(sceneName))
+        {
+            Scene bg = SceneManager.GetSceneByName(BackgroundScene);
+
+            if (!bg.isLoaded)
+            {
+                yield return SceneManager.LoadSceneAsync(
+                    BackgroundScene,
+                    LoadSceneMode.Additive
+                );
+            }
+        }
+    }
+
+    IEnumerator UnloadBackgroundIfNeeded(string sceneName)
+    {
+        if (IsRaceScene(sceneName))
+        {
+            Scene bg = SceneManager.GetSceneByName(BackgroundScene);
+
+            if (bg.isLoaded)
+            {
+                yield return SceneManager.UnloadSceneAsync(BackgroundScene);
+            }
+        }
     }
 }

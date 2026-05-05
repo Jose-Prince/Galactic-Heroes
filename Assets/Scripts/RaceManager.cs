@@ -45,7 +45,7 @@ public class RaceManager : MonoBehaviour
         var actualID = 0;
         timer.StopTimer();
         persistence.SaveData(Vector3.zero, true, timer, actualID);
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void ResetRace()
