@@ -872,7 +872,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1387759482}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_MethodName: LoadSceneWait
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1005,7 +1005,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1387759482}
         m_TargetAssemblyTypeName: MenuUI, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_MethodName: LoadSceneWait
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

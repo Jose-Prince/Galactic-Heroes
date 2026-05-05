@@ -100,8 +100,6 @@ public class SceneFlowManager : MonoBehaviour
             LoadSceneMode.Additive
         );
 
-        yield return LoadBackgroundIfNeeded(sceneName);
-
         loadOp.allowSceneActivation = false;
 
         float timer = 0f;
@@ -127,6 +125,8 @@ public class SceneFlowManager : MonoBehaviour
         {
             yield return null;
         }
+
+        yield return LoadBackgroundIfNeeded(sceneName);
 
         currentScene = sceneName;
 

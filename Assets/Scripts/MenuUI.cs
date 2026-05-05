@@ -18,11 +18,13 @@ public class MenuUI : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneFlowManager.Instance.LoadScene(sceneName);
+        Time.timeScale = 1f;
     }
 
     public void LoadSceneWait(string sceneName)
     {
         SceneFlowManager.Instance.LoadSceneWithLoading(sceneName);
+        Time.timeScale = 1f;
     }
 
     public void QuitGame()
