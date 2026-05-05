@@ -7,6 +7,11 @@ public class MenuUI : MonoBehaviour
         SceneFlowManager.Instance.LoadScene(sceneName);
     }
 
+    public void LoadSceneWait(string sceneName)
+    {
+        SceneFlowManager.Instance.LoadSceneWithLoading(sceneName);
+    }
+
     public void QuitGame()
     {
         Application.Quit();

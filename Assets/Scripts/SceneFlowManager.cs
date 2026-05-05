@@ -42,6 +42,11 @@ public class SceneFlowManager : MonoBehaviour
         StartCoroutine(LoadRoutine(sceneName));
     }
 
+    public void LoadSceneWithLoading(string sceneName)
+    {
+        StartCoroutine(LoadWithLoadingRoutine(sceneName));
+    }
+
     IEnumerator LoadRoutine(string sceneName)
     {
         if (!string.IsNullOrEmpty(currentScene))
@@ -58,5 +63,56 @@ public class SceneFlowManager : MonoBehaviour
 
         Scene scene = SceneManager.GetSceneByName(sceneName);
         SceneManager.SetActiveScene(scene);
+    }
+
+    IEnumerator LoadWithLoadingRoutine(string sceneName)
+    {
+        yield return SceneManager.LoadSceneAsync(
+            "LoadingScene",
+            LoadSceneMode.Additive
+        );
+
+        if (!string.IsNullOrEmpty(currentScene))
+        {
+            yield return SceneManager.UnloadSceneAsync(currentScene);
+        }
+
+        AsyncOperation loadOp = SceneManager.LoadSceneAsync(
+            sceneName,
+            LoadSceneMode.Additive
+        );
+
+        loadOp.allowSceneActivation = false;
+
+        float timer = 0f;
+
+        while (timer < 5f || loadOp.progress < 0.9f)
+        {
+            timer += Time.deltaTime;
+
+            float sceneProgress = loadOp.progress / 0.9f;
+            float timeProgress = timer / 5f;
+
+            float progress = Mathf.Min(sceneProgress, timeProgress);
+
+            if (LoadingUI.Instance != null)
+                LoadingUI.Instance.SetProgress(progress);
+
+            yield return null;
+        }
+
+        loadOp.allowSceneActivation = true;
+
+        while (!loadOp.isDone)
+        {
+            yield return null;
+        }
+
+        currentScene = sceneName;
+
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+        SceneManager.SetActiveScene(scene);
+
+        yield return SceneManager.UnloadSceneAsync("LoadingScene");
     }
 }
