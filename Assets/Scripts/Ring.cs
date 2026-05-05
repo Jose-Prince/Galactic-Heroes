@@ -18,7 +18,7 @@ public class Ring : MonoBehaviour
         sc.enabled = false;
         RaceManager.Instance.RingPassed();
 
-        RaceManager.Instance.SaveProgress();
+        // RaceManager.Instance.SaveProgress();
     }
 
     public void ResetRing()

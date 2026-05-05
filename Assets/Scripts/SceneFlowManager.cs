@@ -49,9 +49,14 @@ public class SceneFlowManager : MonoBehaviour
 
     IEnumerator LoadRoutine(string sceneName)
     {
-        if (!string.IsNullOrEmpty(currentScene))
+       if (!string.IsNullOrEmpty(currentScene))
         {
-            yield return SceneManager.UnloadSceneAsync(currentScene);
+            Scene sceneToUnload = SceneManager.GetSceneByName(currentScene);
+
+            if (sceneToUnload.isLoaded)
+            {
+                yield return SceneManager.UnloadSceneAsync(currentScene);
+            }
         }
 
         yield return SceneManager.LoadSceneAsync(
@@ -67,6 +72,7 @@ public class SceneFlowManager : MonoBehaviour
 
     IEnumerator LoadWithLoadingRoutine(string sceneName)
     {
+        Debug.Log(currentScene);
         yield return SceneManager.LoadSceneAsync(
             "LoadingScene",
             LoadSceneMode.Additive
@@ -74,7 +80,12 @@ public class SceneFlowManager : MonoBehaviour
 
         if (!string.IsNullOrEmpty(currentScene))
         {
-            yield return SceneManager.UnloadSceneAsync(currentScene);
+            Scene sceneToUnload = SceneManager.GetSceneByName(currentScene);
+
+            if (sceneToUnload.isLoaded)
+            {
+                yield return SceneManager.UnloadSceneAsync(currentScene);
+            }
         }
 
         AsyncOperation loadOp = SceneManager.LoadSceneAsync(

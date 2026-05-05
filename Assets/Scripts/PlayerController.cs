@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
-        stats = GetComponent<StatsData>();
+        //stats = GetComponent<StatsData>();
     }
 
     void Update()
