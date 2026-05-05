@@ -20,7 +20,7 @@ public class RaceTimer : MonoBehaviour
     void Start()
     {
         var data = gameManager.GetData();
-        UpdateUI(data.raceTimes[0], lastTimeText);
+        //UpdateUI(data.raceTimes[0], lastTimeText);
     }
 
     void Update()

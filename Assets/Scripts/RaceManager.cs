@@ -81,11 +81,6 @@ public class RaceManager : MonoBehaviour
         File.WriteAllText("/player.save", json);;
     }
 
-    public void SaveProgress()
-    {
-        SaveRaceProgress(FindFirstObjectByType<Player>().transform.position, false);
-    }
-
     void LoadRace(GameData data)
     {
         for (int i = 0; i < rings.Count; i++)
